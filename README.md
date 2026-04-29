@@ -1,47 +1,80 @@
 # IIS-Challenge
 Fuel Optimization for Transportation Fleets
 
-## Challenge description
+## Overview
 
-A big Mexican transportation enterprise presented us a challenge to optimize fuel in their transportation fleets. 
+A major Mexican transportation company operating **1,000+ trucks** and **4,100+ trailers** nationwide presented us with a challenge: **fuel represents 30% of their total operating costs**, and there is significant variability in consumption between trips under similar conditions.
 
-They told us that fuel cost represents around 30% of their total cost. 
+Our goal is to identify the root causes of this variability, build a predictive model for expected fuel consumption, and propose actionable strategies to reduce waste - translating every insight into measurable economic impact.
 
-In the presentation they showed us how the diesel price has augmented over the past years
+## Problem Statement
 
-There exists variability in the diesel consumption between trips with similar conditions
+Trips on the same route (**Puebla → Cuautitlán Izcalli**, ~165 km) with comparable loads show inconsistent fuel efficiency (km/L). This variability leads to unpredictable costs and missed optimization opportunities across the fleet.
 
----------
+**Key question:** *What factors drive fuel consumption differences between similar trips, and how can we standardize performance to the most efficient levels?*
 
-Modeling of consumption:
+## Dataset
 
-| Inputs | → Predictive Model | → Comparison | → Output |
-|---|---|---|---|
-| Distance km | Separated consumption | Real vs Predict | Identification of deviations |
-| Load ton | | | (+5% = alert) |
-| Performance km/L | | | |
+| Attribute | Detail |
+|-----------|--------|
+| Records | 76 trips |
+| Route | Puebla – Cuautitlán Izcalli |
+| Period | *(to be confirmed from data)* |
 
----------
+### Variables
 
-Factors in diesel variability:
+| Variable | Description | Type |
+|----------|-------------|------|
+| `Remision` | Trip ID / shipment reference | Categorical |
+| `Unidad` | Truck unit identifier | Categorical |
+| `Operador` | Driver identifier | Categorical |
+| `Ruta` | Route name | Categorical (single value) |
+| `Fecha_Inicio` | Trip start date | Date |
+| `Fecha_Fin` | Trip end date | Date |
+| `Inicio_Hora` | Departure time | Time |
+| `Fin_Hora` | Arrival time | Time |
+| `km` | Distance traveled | Numeric (continuous) |
+| `Litros` | Fuel consumed | Numeric (continuous) |
+| `Rend` | Fuel efficiency (km/L) | Numeric (continuous) |
+| `peso` | Load weight | Numeric (continuous) |
 
-* Dead times
-* Load weight
-* Truck type
+## Project Structure
 
----------
+```
+├── data/
+│   ├── raw/                    # Original dataset (not tracked)
+│   ├── processed/              # Cleaned and enriched data
+│   └── external/               # Diesel prices, weather data
+│
+├── notebooks/
+│   ├── 01_business_understanding.md
+│   ├── 02_data_understanding.ipynb
+│   ├── 03_data_preparation.ipynb
+│   ├── 04_modeling.ipynb
+│   └── 05_evaluation.ipynb
+│
+├── src/
+│   ├── data_processing.py      # Cleaning and feature engineering
+│   ├── modeling.py             # Model training and evaluation
+│   └── utils.py                # Helper functions
+│
+├── reports/
+│   ├── figures/                # Charts and visualizations
+│   └── final_presentation.pptx
+│
+├── .gitignore
+├── requirements.txt
+└── README.md
+```
 
-Also they gave us four possible reasons for the difference in the diesel consumption (Considering that it is the same route):
+### Requirements
 
-* Drivers without training
-* Absence of Monitoring
-* Lack of incentives
-* Bad planning in their routes
-
----------
-
-Things to consider:
-
-* Cost vs Benefit
-* Viability
-* Impact
+```
+pandas>=2.0
+numpy>=1.24
+matplotlib>=3.7
+seaborn>=0.12
+scikit-learn>=1.3
+scipy>=1.11
+openpyxl>=3.1
+```
