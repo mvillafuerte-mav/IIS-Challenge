@@ -13,6 +13,8 @@ There exists variability in the diesel consumption between trips with similar co
 
 ---------
 
+Modeling of consumption:
+
 | Inputs | → Predictive Model | → Comparison | → Output |
 |---|---|---|---|
 | Distance km | Separated consumption | Real vs Predict | Identification of deviations |
